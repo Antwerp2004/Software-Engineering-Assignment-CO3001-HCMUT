@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Printing Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="w-full bg-white shadow-md py-4"> 
+        <div class="container mx-auto flex items-center justify-between px-6"> 
+            <a href="/">
+                <div class="flex items-center space-x-3"> 
+                    <img src="./img/HCMUT_official_logo.png" alt="Logo" class="w-10 h-10"> 
+                    <h1 class="text-xl font-bold text-green-500">HCMUT - SSPS</h1> 
+                </div> 
+            </a>
+            <div class="flex items-center space-x-4"> 
+                <button class="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center"> 
+                    <span class="material-icons">email</span> 
+                </button> 
+                <button class="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center"> 
+                    <span class="material-icons">notifications</span> 
+                </button> 
+                <a href="/profile">
+                    <button class="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center"> 
+                    <span class="material-icons">person</span> 
+                    </button> 
+                </a>
+            </div> 
+        </div> 
+    </header>
+
+    <!-- Section: Tải tài liệu lên -->
+    <div class="container mx-auto p-6">
+        <div class="bg-white text-gray-800 shadow-lg rounded-lg mb-8">
+            <!-- Tiêu đề -->
+            <div class="bg-blue-500 text-white text-center py-4 rounded-t-lg">
+                <h2 class="text-lg font-bold uppercase">Tải tài liệu lên</h2>
+            </div>
+
+            <!-- Nội dung -->
+            <div class="p-6">
+                <form action="/upload" method="POST" enctype="multipart/form-data">
+                    <!-- VỊ trí máy in -->
+                    <div class="mb-4">
+                        <label for="printer-location" class="block text-sm font-semibold text-gray-700 mb-1">Địa điểm đặt máy:</label>
+                        <select id="printer-location" class="w-full bg-gray-100 text-gray-800 rounded px-4 py-2">
+                            <option>C6</option>
+                            <option>A5</option>
+                            <option>B10</option>
+                            <option>A6</option>
+                        </select>
+                    </div>
+
+                    <!-- Mã máy in -->
+                    <div class="mb-4">
+                        <label for="printer-id" class="block text-sm font-semibold text-gray-700 mb-1">Mã máy in:</label>
+                        <select id="printer-id" class="w-full bg-gray-100 text-gray-800 rounded px-4 py-2">
+                            <option>A123</option>
+                            <option>A456</option>
+                            <option>A789</option>
+                            <option>AJQK</option>
+                        </select>
+                    </div>
+
+                    <!-- Tên máy in -->
+                    <div class="mb-4">
+                        <label for="printer-name" class="block text-sm font-semibold text-gray-700 mb-1">Tên máy in:</label>
+                        <select id="printer-name" class="w-full bg-gray-100 text-gray-800 rounded px-4 py-2">
+                            <option>Toshiba</option>
+                            <option>Điện máy xanh</option>
+                            <option>VSmart</option>
+                            <option>TGGĐ</option>
+                        </select>
+                    </div>
+
+                    <!-- Số trang mỗi lần in -->
+                    <div class="mb-4">
+                        <label for="printer-status" class="block text-sm font-semibold text-gray-700 mb-1">Trạng thái:</label>
+                        <input type="text" id="printer-status" class="w-full bg-gray-100 text-gray-800 rounded px-4 py-2"value="Sẵn sàng">
+                    </div>
+                    <div class="mb-4">
+                        <label for="file-upload" class="block text-sm font-semibold text-gray-700 mb-2">Chọn tệp tài liệu:</label>
+                        <input type="file" id="file-upload" name="file" class="w-full bg-gray-100 text-gray-800 rounded px-4 py-2 border border-gray-300" accept=".pdf, .docx, .pptx">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="file-name" class="block text-sm font-semibold text-gray-700 mb-2">Tên tài liệu (tùy chọn):</label>
+                        <input type="text" id="file-name" name="fileName" class="w-full bg-gray-100 text-gray-800 rounded px-4 py-2 border border-gray-300" placeholder="Nhập tên tài liệu...">
+                    </div>
+
+                    <!-- Kích thước giấy -->
+                    <div class="mb-4">
+                        <label for="paper-size" class="block text-sm font-semibold text-gray-700 mb-1">Kích thước giấy:</label>
+                        <select id="paper-size" class="w-full bg-gray-100 text-gray-800 rounded px-4 py-2">
+                            <option>A4</option>
+                            <option>A3</option>
+                            <option>B4</option>
+                            <option>B5</option>
+                            <option>C5</option>
+                            <option>DL</option>
+                            <option>Letter</option>
+                            <option>Legal</option>
+                        </select>
+                    </div>
+
+                    <!-- Số trang mỗi lần in -->
+                    <div class="mb-4">
+                        <label for="pages-per-print" class="block text-sm font-semibold text-gray-700 mb-1">Số trang trên 1 mặt giấy:</label>
+                        <select type="number" id="pages-per-print" class="w-full bg-gray-100 text-gray-800 rounded px-4 py-2" name="pages-per-paper">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>4</option>
+                        </select>
+                    </div>
+
+                    <!-- Tùy chọn in hai mặt -->
+                    <div class="mb-4 flex items-center">
+                        <input type="checkbox" id="double-sided" class="mr-2" name="double-sided">
+                        <label for="double-sided" class="text-sm font-semibold text-gray-700">In hai mặt</label>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded">
+                            Tải lên
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="w-full bg-white shadow-md py-8 mt-8">
+        <div class="container mx-auto flex flex-wrap justify-between px-6">
+            <!-- Logo và tên -->
+            <div class="w-full md:w-1/3 mb-6 md:mb-0 flex flex-col items-start">
+                <div class="flex items-center flex-col">
+                    <img src="./img/HCMUT_official_logo.png" alt="Logo" class="h-20 mb-2">
+                    <h1 class="text-xl font-bold text-green-500">HCMUT - SSPS</h1>
+                </div>
+            </div>
+            <!-- Danh mục -->
+            <div class="w-full md:w-1/3 mb-6 md:mb-0">
+                <h2 class="text-lg font-bold text-gray-700">Danh Mục</h2>
+                <ul>
+                    <li class="text-gray-600">In tài liệu</li>
+                    <li class="text-gray-600">Lịch sử in</li>
+                    <li class="text-gray-600">Mua trang in</li>
+                </ul>
+            </div>
+            <!-- Liên hệ -->
+            <div class="w-full md:w-1/3">
+                <h2 class="text-lg font-bold text-gray-700">Liên Hệ</h2>
+                <p class="text-gray-600">Address: 268 Lý Thường Kiệt, phường 14, quận 10, TP.HCM</p>
+                <p class="text-gray-600">Phone: (028) 38 651 670 - (028) 38 647 256 (Ext: 5258, 5234)</p>
+                <p class="text-gray-600">Email: ssps@hcmut.edu.vn</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

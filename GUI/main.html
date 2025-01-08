@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HCMUT_SPSS</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+<body class="bg-gray-100">
+    <header class="w-full bg-white shadow-md py-4"> 
+        <div class="container mx-auto flex items-center justify-between px-6"> 
+            <a href="main.html">
+                <div class="flex items-center space-x-3"> 
+                    <img src="./img/HCMUT_official_logo.png" alt="Logo" class="w-10 h-10"> 
+                    <h1 class="text-xl font-bold text-green-500">HCMUT - SSPS</h1> 
+                </div> 
+            </a>
+            <div class="flex items-center space-x-4"> 
+                <button class="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center"> 
+                    <span class="material-icons">email</span> 
+                </button> 
+                <button class="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center"> 
+                    <span class="material-icons">notifications</span> 
+                </button> 
+                <a href="user_profile.html">
+                    <button class="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center"> 
+                    <span class="material-icons">person</span> 
+                    </button> 
+                </a>
+            </div> 
+        </div> 
+    </header>
+
+    <div class="flex">
+        <!-- Sidebar -->
+        <div class="w-1/5 bg-blue-500 text-white p-4">
+            <div class="flex items-center mb-6">
+                <img src="./img/logo3.png" alt="Logo" class="w-20 h-20 mr-2">
+                <span class="font-bold text-lg">HCMUT_SPSS</span>
+            </div>
+            <nav>
+                <ul>
+                    <li class="">
+                        <a href="main.html" class="flex items-center text-2xl p-2">
+                            <i class="fa-solid fa-house-chimney-window mr-2"></i> <span>Trang chủ</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="user_print.html" class="flex items-center text-2xl p-2">
+                            <i class="fa-solid fa-print mr-2"></i> In tài liệu
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="printing_log.html" class="flex items-center text-2xl p-2">
+                            <i class="fa-solid fa-clock-rotate-left mr-2"></i> Lịch sử in
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="user_buy_page.html" class="flex items-center text-2xl p-2">
+                            <i class="fa-regular fa-credit-card mr-2"></i> Thanh toán online
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="w-4/5 p-6">
+            <div class="grid grid-cols-3 gap-4 mb-6">
+                <div class="bg-white p-4 rounded shadow">
+                    <img src="./img/printer.png" alt="Student Printing" class="w-full object-cover mb-2">
+                    <h2 class="text-lg font-bold">Student Printing Service Officer</h2>
+                </div>
+                <div class="bg-white p-4 rounded shadow">
+                    <img src="./img/slbk.jpg" alt="University Info" class="w-full object-cover mb-2">
+                    <h2 class="text-lg font-bold">Cổng thông tin trường đại học Bách Khoa</h2>
+                </div>
+                <div class="bg-white p-4 rounded shadow">
+                    <img src="./img/slbktv.jpg" alt="LMS" class="w-full object-cover mb-2">
+                    <h2 class="text-lg font-bold">LMS</h2>
+                </div>
+            </div>
+            <div class="grid grid-cols-5 gap-4">
+                <a href="user_print.html">
+                    <div class="bg-white p-4 rounded shadow flex flex-col items-center">
+                        <img src="./img/a3.png" alt="A3" class="h-20 mb-2">
+                        <span>A3</span>
+                    </div>
+                </a>
+
+                <a href="user_print.html">
+                    <div class="bg-white p-4 rounded shadow flex flex-col items-center">
+                        <img src="./img/a4.png" alt="A4" class="h-20 mb-2">
+                        <span>A4</span>
+                    </div>
+                </a>
+
+                <a href="user_print.html">
+                    <div class="bg-white p-4 rounded shadow flex flex-col items-center">
+                        <img src="./img/do an.png" alt="Project" class="h-20 mb-2">
+                        <span>Đồ án chuyên ngành</span>
+                    </div>
+                </a>
+
+                <a href="user_print.html">
+                    <div class="bg-white p-4 rounded shadow flex flex-col items-center">
+                        <img src="./img/tieu luan.png" alt="Essay" class="h-20 mb-2">
+                        <span>Tiểu luận</span>
+                    </div>
+                </a>
+
+                <a href="user_print.html">
+                    <div class="bg-white p-4 rounded shadow flex flex-col items-center">
+                        <img src="./img/in mau.png" alt="Color Printing" class="h-20 mb-2">
+                        <span>In màu</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="w-full bg-white shadow-md py-8 mt-8">
+        <div class="container mx-auto flex flex-wrap justify-between px-6">
+            <!-- Logo and Title -->
+            <div class="w-full md:w-1/3 mb-6 md:mb-0 flex flex-col items-start">
+                <div class="flex items-center flex-col">
+                    <img src="./img/HCMUT_official_logo.png" alt="Logo" class="h-20 mb-2">
+                    <h1 class="text-xl font-bold text-green-500">HCMUT - SSPS</h1>
+                </div>
+            </div>
+            <!-- Categories -->
+            <div class="w-full md:w-1/3 mb-6 md:mb-0">
+                <h2 class="text-lg font-bold text-gray-700">Danh Mục</h2>
+                <ul>
+                    <li class="text-gray-600">In tài liệu</li>
+                    <li class="text-gray-600">Lịch sử in</li>
+                    <li class="text-gray-600">Mua trang in</li>
+                </ul>
+            </div>
+            <!-- Contact Information -->
+            <div class="w-full md:w-1/3">
+                <h2 class="text-lg font-bold text-gray-700">Liên Hệ</h2>
+                <p class="text-gray-600">Address: 268 Lý Thường Kiệt, phường 14, quận 10, TP.HCM</p>
+                <p class="text-gray-600">Phone: (028) 38 651 670 - (028) 38 647 256 (Ext: 5258, 5234)</p>
+                <p class="text-gray-600">Email: ssps@hcmut.edu.vn</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

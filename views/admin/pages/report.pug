@@ -1,0 +1,207 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Printing Management System
+  link(href='https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css' rel='stylesheet')
+  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css')
+  link(href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet')
+  script(src='https://cdn.jsdelivr.net/npm/chart.js')
+.min-h-screen.flex.flex-col(class='lg:flex-row')
+  // Sidebar
+  aside.w-full.bg-blue-600.text-white.flex.flex-col(class='lg:w-64')
+    img.w-auto.h-auto.mb-2(src='/img/HCMUT_official_logo.png' alt='Logo')
+    .flex.items-center.justify-center.py-4.border-b-2
+      h1.text-2xl.font-bold.text-green-500 HCMUT - SSPS
+    nav.mt-4.space-y-2.text-xl
+      a.flex.items-center.space-x-3.py-2.px-3.rounded(href=`${prefixAdmin}/` class='hover:bg-blue-700')
+        span.material-icons home
+        span Trang ch&#x1EE7;
+      a.flex.items-center.space-x-3.py-2.px-3.rounded(href=`${prefixAdmin}/mng_printer` class='hover:bg-blue-700')
+        span.material-icons print
+        span Qu&#x1EA3;n l&yacute; m&aacute;y in
+      a.flex.items-center.space-x-3.py-2.px-3.rounded(href=`${prefixAdmin}/log` class='hover:bg-blue-700')
+        span.material-icons history
+        span L&#x1ECB;ch s&#x1EED; d&#x1ECB;ch v&#x1EE5;
+      a.flex.items-center.space-x-3.py-2.px-3.rounded(href=`${prefixAdmin}/report` class='hover:bg-blue-700')
+        span.material-icons report
+        span Xem b&aacute;o c&aacute;o
+      a.flex.items-center.space-x-3.py-2.px-3.rounded(href=`${prefixAdmin}/config` class='hover:bg-blue-700')
+        span.material-icons settings
+        span Chỉnh sửa hệ thống 
+  // Main Content
+  main.flex-1.bg-gray-100
+    // Header
+    header.w-full.bg-white.shadow-md.py-4.mb-8
+      .container.mx-auto.flex.items-center.justify-between.px-6
+        .flex.items-center.space-x-3
+          img.w-10.h-10(src='./img/HCMUT_official_logo.png' alt='Logo')
+          h1.text-xl.font-bold.text-green-500 HCMUT - SSPS
+        .flex.items-center.space-x-4
+          button.bg-blue-500.text-white.rounded-full.w-10.h-10.flex.items-center.justify-center
+            span.material-icons email
+          button.bg-blue-500.text-white.rounded-full.w-10.h-10.flex.items-center.justify-center
+            span.material-icons notifications
+          button.bg-blue-500.text-white.rounded-full.w-10.h-10.flex.items-center.justify-center
+            span.material-icons person
+    // Main Content
+    .flex-1.p-5
+      // Filter Section
+      h2.font-semibold.text-blue-600.text-2xl.mb-5 B&aacute;o c&aacute;o
+      .flex.justify-between.items-center.mb-5
+        div
+          label.mr-2(for='yearSelect') Ch&#x1ECD;n n&abreve;m:
+          select#yearSelect.p-2.border.rounded(onchange='updateChart()')
+            // Dynamically populated
+        div
+          label.mr-2(for='monthSelect') Ch&#x1ECD;n th&aacute;ng:
+          select#monthSelect.p-2.border.rounded(onchange='updateChart()')
+            // Dynamically populated
+      // Statistics Section
+      .flex.justify-between.mb-5
+        .bg-white.p-5.rounded-lg.shadow-lg.text-center(class='w-1/3')
+          h3.font-semibold S&#x1ED1; m&aacute;y in &dstrok;&#x1B0;&#x1EE3;c s&#x1EED; d&#x1EE5;ng
+          p#printerCount.text-blue-500.text-2xl 0
+        .bg-white.p-5.rounded-lg.shadow-lg.text-center(class='w-1/3')
+          h3.font-semibold T&#x1ED5;ng doanh thu
+          p#totalRevenue.text-blue-500.text-2xl 0 VND
+      // Chart Section
+      .bg-white.p-5.rounded-lg.shadow-lg
+        canvas#usageChart.w-full.h-72
+    script.
+      // Example data
+      const data = !{JSON.stringify(datatest)};
+      const years = [...new Set(data.map((d) => d.year))]; // Extract unique years
+      const months = [...new Set(data.map((d) => d.month))]; // Extract unique months
+      // Populate Year and Month Select options
+      const yearSelect = document.getElementById("yearSelect");
+      const monthSelect = document.getElementById("monthSelect");
+      years.forEach((year) => {
+        const option = document.createElement("option");
+        option.value = year;
+        option.textContent = year;
+        yearSelect.appendChild(option);
+      });
+      months.forEach((month) => {
+        const option = document.createElement("option");
+        option.value = month;
+        option.textContent = `Tháng ${month}`;
+        monthSelect.appendChild(option);
+      });
+      // Global chart variable to destroy and recreate the chart
+      let usageChart;
+      // Function to update chart based on selected year and month
+      function updateChart() {
+        const selectedYear = parseInt(yearSelect.value);
+        const selectedMonth = parseInt(monthSelect.value);
+        // Filter data based on selected year and month
+        const filteredData = data.filter(
+          (d) => d.year === selectedYear && d.month === selectedMonth
+        );
+        if (filteredData.length > 0) {
+          const latestData = filteredData[0];
+          document.getElementById("printerCount").textContent =
+            latestData.printers;
+          document.getElementById(
+            "totalRevenue"
+          ).textContent = `${latestData.revenue.toLocaleString()} VND`;
+          // Prepare chart data
+          const labels = [
+            "A4",
+            "A3",
+            "B4",
+            "B5",
+            "C5",
+            "DL",
+            "Letter",
+            "Legal",
+          ];
+          const pageUsage = [
+            latestData.a4,
+            latestData.a3,
+            latestData.b4,
+            latestData.b5,
+            latestData.c5,
+            latestData.dl,
+            latestData.letter,
+            latestData.legal,
+          ];
+          // If chart already exists, destroy it before creating a new one
+          if (usageChart) {
+            usageChart.destroy();
+          }
+          // Initialize Chart.js
+          const ctx = document
+            .getElementById("usageChart")
+            .getContext("2d");
+          usageChart = new Chart(ctx, {
+            type: "bar",
+            data: {
+              labels: labels,
+              datasets: [
+                {
+                  label: "Số trang",
+                  data: pageUsage,
+                  backgroundColor: [
+                    "#60a5fa",
+                    "#93c5fd",
+                    "#bfdbfe",
+                    "#3b82f6",
+                    "#2563eb",
+                    "#1d4ed8",
+                    "#1e40af",
+                    "#1e3a8a",
+                  ],
+                  borderColor: "#3b82f6",
+                  borderWidth: 1,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: true,
+              plugins: {
+                legend: {
+                  display: true,
+                  position: "top",
+                },
+              },
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  ticks: {
+                    stepSize: 50,
+                  },
+                },
+              },
+            },
+          });
+        }
+      }
+      // Set default values and call the function to populate the chart
+      yearSelect.value = years[0]; // Set default year
+      monthSelect.value = months[0]; // Set default month
+      updateChart(); // Initialize chart with default selections
+    // Footer
+    footer.w-full.bg-white.shadow-md.py-8.mt-8
+      .container.mx-auto.flex.flex-wrap.justify-between.px-6
+        // Logo and Title
+        .w-full.mb-6.flex.flex-col.items-start(class='md:w-1/3 md:mb-0')
+          .flex.items-center.flex-col
+            img.h-20.mb-2(src='./img/HCMUT_official_logo.png' alt='Logo')
+            h1.text-xl.font-bold.text-green-500 HCMUT - SSPS
+        // Categories
+        .w-full.mb-6(class='md:w-1/3 md:mb-0')
+          h2.text-lg.font-bold.text-gray-700 Danh M&#x1EE5;c
+          ul
+            li.text-gray-600 Qu&#x1EA3;n l&yacute; m&aacute;y in
+            li.text-gray-600 L&#x1ECB;ch s&#x1EED; d&#x1ECB;ch v&#x1EE5;
+            li.text-gray-600 Xem b&aacute;o c&aacute;o
+        // Contact Information
+        .w-full(class='md:w-1/3')
+          h2.text-lg.font-bold.text-gray-700 Li&ecirc;n H&#x1EC7;
+          p.text-gray-600
+            | Address: 268 L&yacute; Th&#x1B0;&#x1EDD;ng Ki&#x1EC7;t, ph&#x1B0;&#x1EDD;ng 14, qu&#x1EAD;n 10, TP.HCM
+          p.text-gray-600
+            | Phone: (028) 38 651 670 - (028) 38 647 256 (Ext: 5258, 5234)
+          p.text-gray-600 Email: ssps@hcmut.edu.vn

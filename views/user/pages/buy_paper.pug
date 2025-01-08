@@ -1,0 +1,114 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Printing Management System
+  link(href='https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css' rel='stylesheet')
+  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css')
+  link(href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet')
+// Header
+header.w-full.bg-white.shadow-md.py-4
+  .container.mx-auto.flex.items-center.justify-between.px-6
+    a(href='/')
+      .flex.items-center.space-x-3
+        img.w-10.h-10(src='/img/HCMUT_official_logo.png' alt='Logo')
+        h1.text-xl.font-bold.text-green-500 HCMUT - SSPS
+    .flex.items-center.space-x-4
+      button.bg-blue-500.text-white.rounded-full.w-10.h-10.flex.items-center.justify-center
+        span.material-icons email
+      button.bg-blue-500.text-white.rounded-full.w-10.h-10.flex.items-center.justify-center
+        span.material-icons notifications
+      a(href='/profile')
+        button.bg-blue-500.text-white.rounded-full.w-10.h-10.flex.items-center.justify-center
+          span.material-icons person
+// Main Content
+.container.mx-auto.flex.flex-col.items-center.mt-8
+  // Mua Trang In Section
+  .bg-white.shadow.rounded-lg.w-full.max-w-3xl.p-6.mb-8
+    h2.text-lg.font-bold.text-gray-700.mb-4 Mua Trang In
+    form#buyPaperForm.space-y-4(action='/buy_paper' method='POST')
+      // Số lượng trang
+      div
+        label.block.text-gray-600.font-medium Số lượng trang A4 - 1000đ
+        input#quantity.mt-1.w-full.border.rounded.px-3.py-2(type='number' placeholder='Nhập số lượng' min='1' value='1' name='quantity')
+      // Tổng tiền
+      .flex.items-center.justify-between
+        span.text-gray-600.font-medium T&#x1ED5;ng ti&#x1EC1;n:
+        span#totalCost.text-lg.font-bold.text-blue-500 1000 VN&Dstrok;
+      // Nút Mua
+      button.w-full.bg-blue-500.text-white.py-2.rounded.shadow(type='submit' class='hover:bg-blue-600')
+        | Mua Trang In
+  // Thông Tin Giao Dịch
+  .bg-white.shadow.rounded-lg.w-full.max-w-3xl.p-6
+    h2.text-lg.font-bold.text-gray-700.mb-4 Th&ocirc;ng Tin Mua Trang
+    table.min-w-full.border
+      thead
+        tr.bg-gray-100
+          th.border.px-4.py-2.text-left.text-gray-600.font-medium M&atilde; &dstrok;&#x1A1;n h&agrave;ng
+          th.border.px-4.py-2.text-left.text-gray-600.font-medium S&#x1ED1; l&#x1B0;&#x1EE3;ng
+          th.border.px-4.py-2.text-left.text-gray-600.font-medium S&#x1ED1; ti&#x1EC1;n
+          th.border.px-4.py-2.text-left.text-gray-600.font-medium Ng&agrave;y thanh to&aacute;n
+          th.border.px-4.py-2.text-left.text-gray-600.font-medium Tr&#x1EA1;ng th&aacute;i
+      tbody#transactionTable.bg-white
+        each item, index in logs 
+          tr
+            th.border.px-4.py-2.text-left.font-medium #{item['Mã đơn hàng']}
+            th.border.px-4.py-2.text-left.font-medium #{item['Số lượng trang mua']}         
+            th.border.px-4.py-2.text-left.font-medium #{item['Số tiền (VND)']}       
+            th.border.px-4.py-2.text-left.font-medium #{item['Ngày thanh toán']}        
+            th.border.px-4.py-2.text-left.font-medium #{item['Trạng thái']}
+footer.w-full.bg-white.shadow-md.py-8.mt-8
+  .container.mx-auto.flex.flex-wrap.justify-between.px-6
+    // Logo and Title
+    .w-full.mb-6.flex.flex-col.items-start(class='md:w-1/3 md:mb-0')
+      .flex.items-center.flex-col
+        img.h-20.mb-2(src='/img/HCMUT_official_logo.png' alt='Logo')
+        h1.text-xl.font-bold.text-green-500 HCMUT - SSPS
+    // Categories
+    .w-full.mb-6(class='md:w-1/3 md:mb-0')
+      h2.text-lg.font-bold.text-gray-700 Danh M&#x1EE5;c
+      ul
+        li.text-gray-600 In t&agrave;i li&#x1EC7;u
+        li.text-gray-600 L&#x1ECB;ch s&#x1EED; in
+        li.text-gray-600 Mua trang in
+    // Contact Information
+    .w-full(class='md:w-1/3')
+      h2.text-lg.font-bold.text-gray-700 Li&ecirc;n H&#x1EC7;
+      p.text-gray-600 Address: 268 L&yacute; Th&#x1B0;&#x1EDD;ng Ki&#x1EC7;t, ph&#x1B0;&#x1EDD;ng 14, qu&#x1EAD;n 10, TP.HCM
+      p.text-gray-600 Phone: (028) 38 651 670 - (028) 38 647 256 (Ext: 5258, 5234)
+      p.text-gray-600 Email: ssps@hcmut.edu.vn
+// Script
+script.
+  // Cập nhật tổng tiền khi thay đổi số lượng hoặc loại trang
+  const quantity = document.getElementById("quantity");
+  const totalCost = document.getElementById("totalCost");
+  const transactionTable = document.getElementById("transactionTable");
+  function updateTotalCost() {
+    const quantityValue = parseInt(quantity.value, 10) || 0;
+    totalCost.textContent = `${1000 * quantityValue} VNĐ`;
+  }
+  quantity.addEventListener("input", updateTotalCost);
+  //- // Xử lý sự kiện khi nhấn "Mua Trang In"
+  //- buyPaperForm.addEventListener("submit", (e) => {
+  //- e.preventDefault();
+  //- const quantityValue = parseInt(quantity.value, 10) || 0;
+  //- const totalCostValue = 1000 * quantityValue;
+  //- const now = new Date();
+  //- const formattedDate = `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()} ${now.getHours()}:${now.getMinutes()}`;
+  //- // Tạo mã đơn hàng ngẫu nhiên
+  //- const orderId = `#${Math.floor(Math.random() * 100000)}`;
+  //- // Thêm thông tin giao dịch vào bảng
+  //- const newRow = `
+  //- <tr>
+  //- <td class="border px-4 py-2">${orderId}</td>
+  //- <td class="border px-4 py-2">${quantityValue}</td>
+  //- <td class="border px-4 py-2">${totalCostValue} VNĐ</td>
+  //- <td class="border px-4 py-2">${formattedDate}</td>
+  //- <td class="border px-4 py-2 text-green-500 font-bold">Thành công</td>
+  //- </tr>
+  //- `;
+  //- transactionTable.innerHTML += newRow;
+  //- // Reset form
+  //- quantity.value = "1";
+  //- updateTotalCost();
+  //- });

@@ -1,0 +1,99 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title HCMUT_SPSS
+  link(href='https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css' rel='stylesheet')
+  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css')
+  link(href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet')
+header.w-full.bg-white.shadow-md.py-4
+  .container.mx-auto.flex.items-center.justify-between.px-6
+    a(href='/')
+      .flex.items-center.space-x-3
+        img.w-10.h-10(src='/img/HCMUT_official_logo.png' alt='Logo')
+        h1.text-xl.font-bold.text-green-500 HCMUT - SSPS
+    .flex.items-center.space-x-4
+      button.bg-blue-500.text-white.rounded-full.w-10.h-10.flex.items-center.justify-center
+        span.material-icons email
+      button.bg-blue-500.text-white.rounded-full.w-10.h-10.flex.items-center.justify-center
+        span.material-icons notifications
+      a(href='/profile')
+        button.bg-blue-500.text-white.rounded-full.w-10.h-10.flex.items-center.justify-center
+          span.material-icons person
+.flex
+  // Sidebar
+  .bg-blue-500.text-white.p-4(class='w-1/5')
+    .flex.items-center.mb-6
+      img.w-20.h-20.mr-2(src='./img/logo3.png' alt='Logo')
+      span.font-bold.text-lg HCMUT_SPSS
+    nav
+      ul
+        li
+          a.flex.items-center.text-2xl.p-2(href='/')
+            i.fa-solid.fa-house-chimney-window.mr-2
+            span Trang ch&#x1EE7;
+        li
+          a.flex.items-center.text-2xl.p-2(href='/print')
+            i.fa-solid.fa-print.mr-2
+            |  In t&agrave;i li&#x1EC7;u
+        li
+          a.flex.items-center.text-2xl.p-2(href='/log')
+            i.fa-solid.fa-clock-rotate-left.mr-2
+            |  L&#x1ECB;ch s&#x1EED; in
+        li
+          a.flex.items-center.text-2xl.p-2(href='/buy_paper')
+            i.fa-regular.fa-credit-card.mr-2
+            |  Thanh to&aacute;n online
+  // Main Content
+  .p-6(class='w-4/5')
+    .grid.grid-cols-3.gap-4.mb-6
+      .bg-white.p-4.rounded.shadow
+        img.w-full.object-cover.mb-2(src='./img/printer.png' alt='Student Printing')
+        h2.text-lg.font-bold Student Printing Service Officer
+      .bg-white.p-4.rounded.shadow
+        img.w-full.object-cover.mb-2(src='./img/slbk.jpg' alt='University Info')
+        h2.text-lg.font-bold C&#x1ED5;ng th&ocirc;ng tin tr&#x1B0;&#x1EDD;ng &dstrok;&#x1EA1;i h&#x1ECD;c B&aacute;ch Khoa
+      .bg-white.p-4.rounded.shadow
+        img.w-full.object-cover.mb-2(src='./img/slbktv.jpg' alt='LMS')
+        h2.text-lg.font-bold LMS
+    .grid.grid-cols-5.gap-4
+      a(href='/print')
+        .bg-white.p-4.rounded.shadow.flex.flex-col.items-center
+          img.h-20.mb-2(src='./img/a3.png' alt='A3')
+          span A3
+      a(href='/print')
+        .bg-white.p-4.rounded.shadow.flex.flex-col.items-center
+          img.h-20.mb-2(src='./img/a4.png' alt='A4')
+          span A4
+      a(href='/print')
+        .bg-white.p-4.rounded.shadow.flex.flex-col.items-center
+          img.h-20.mb-2(src='./img/do an.png' alt='Project')
+          span &Dstrok;&#x1ED3; &aacute;n chuy&ecirc;n ng&agrave;nh
+      a(href='/print')
+        .bg-white.p-4.rounded.shadow.flex.flex-col.items-center
+          img.h-20.mb-2(src='./img/tieu luan.png' alt='Essay')
+          span Ti&#x1EC3;u lu&#x1EAD;n
+      a(href='/print')
+        .bg-white.p-4.rounded.shadow.flex.flex-col.items-center
+          img.h-20.mb-2(src='./img/in mau.png' alt='Color Printing')
+          span In m&agrave;u
+footer.w-full.bg-white.shadow-md.py-8.mt-8
+  .container.mx-auto.flex.flex-wrap.justify-between.px-6
+    // Logo and Title
+    .w-full.mb-6.flex.flex-col.items-start(class='md:w-1/3 md:mb-0')
+      .flex.items-center.flex-col
+        img.h-20.mb-2(src='/img/HCMUT_official_logo.png' alt='Logo')
+        h1.text-xl.font-bold.text-green-500 HCMUT - SSPS
+    // Categories
+    .w-full.mb-6(class='md:w-1/3 md:mb-0')
+      h2.text-lg.font-bold.text-gray-700 Danh M&#x1EE5;c
+      ul
+        li.text-gray-600 In t&agrave;i li&#x1EC7;u
+        li.text-gray-600 L&#x1ECB;ch s&#x1EED; in
+        li.text-gray-600 Mua trang in
+    // Contact Information
+    .w-full(class='md:w-1/3')
+      h2.text-lg.font-bold.text-gray-700 Li&ecirc;n H&#x1EC7;
+      p.text-gray-600 Address: 268 L&yacute; Th&#x1B0;&#x1EDD;ng Ki&#x1EC7;t, ph&#x1B0;&#x1EDD;ng 14, qu&#x1EAD;n 10, TP.HCM
+      p.text-gray-600 Phone: (028) 38 651 670 - (028) 38 647 256 (Ext: 5258, 5234)
+      p.text-gray-600 Email: ssps@hcmut.edu.vn

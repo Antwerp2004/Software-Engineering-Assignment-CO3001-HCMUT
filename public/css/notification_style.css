@@ -1,0 +1,36 @@
+/* Show Notification */
+[show-notification] { 
+    position: fixed; 
+    top: 70px; 
+    right: 15px; 
+    z-index: 9999;
+}
+
+[show-notification].notification-hidden {
+    animation-name: notification-hidden;
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+}
+
+@keyframes notification-hidden {
+    from {
+        right: 15px;
+    }
+    to {
+        right: -100%; 
+        display: none;
+    }
+}
+
+[show-notification] [close-notification] {
+    background:#ffffffc4;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-weight: 600; 
+    border-radius: 50%; 
+    cursor: pointer;
+}
+/* End Show Notification */

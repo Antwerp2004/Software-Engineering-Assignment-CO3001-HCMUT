@@ -1,0 +1,143 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Printing Management System
+  link(href='https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css' rel='stylesheet')
+  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css')
+  link(href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet')
+.min-h-screen.flex.flex-col(class='lg:flex-row')
+  // Sidebar
+  aside.w-full.bg-blue-600.text-white.flex.flex-col(class='lg:w-64')
+    img.w-auto.h-auto.mb-2(src='/img/HCMUT_official_logo.png' alt='Logo')
+    .flex.items-center.justify-center.py-4.border-b-2
+      h1.text-2xl.font-bold.text-green-500 HCMUT - SSPS
+    nav.mt-4.space-y-2.text-xl
+      a.flex.items-center.space-x-3.py-2.px-3.rounded(href=`${prefixAdmin}/` class='hover:bg-blue-700')
+        span.material-icons home
+        span Trang ch&#x1EE7;
+      a.flex.items-center.space-x-3.py-2.px-3.rounded(href=`${prefixAdmin}/mng_printer` class='hover:bg-blue-700')
+        span.material-icons print
+        span Qu&#x1EA3;n l&yacute; m&aacute;y in
+      a.flex.items-center.space-x-3.py-2.px-3.rounded(href=`${prefixAdmin}/log` class='hover:bg-blue-700')
+        span.material-icons history
+        span L&#x1ECB;ch s&#x1EED; d&#x1ECB;ch v&#x1EE5;
+      a.flex.items-center.space-x-3.py-2.px-3.rounded(href=`${prefixAdmin}/report` class='hover:bg-blue-700')
+        span.material-icons report
+        span Xem b&aacute;o c&aacute;o
+      a.flex.items-center.space-x-3.py-2.px-3.rounded(href=`${prefixAdmin}/config` class='hover:bg-blue-700')
+        span.material-icons settings
+        span Chỉnh sửa hệ thống 
+  // Main Content
+  main.flex-1.bg-gray-100
+    // Header
+    header.w-full.bg-white.shadow-md.py-4.mb-8
+      .container.mx-auto.flex.items-center.justify-between.px-6
+        .flex.items-center.space-x-3
+          img.w-10.h-10(src='/img/HCMUT_official_logo.png' alt='Logo')
+          h1.text-xl.font-bold.text-green-500 HCMUT - SSPS
+        .flex.items-center.space-x-4
+          button.bg-blue-500.text-white.rounded-full.w-10.h-10.flex.items-center.justify-center
+            span.material-icons email
+          button.bg-blue-500.text-white.rounded-full.w-10.h-10.flex.items-center.justify-center
+            span.material-icons notifications
+          a(href=`${prefixAdmin}/profile`)
+            button.bg-blue-500.text-white.rounded-full.w-10.h-10.flex.items-center.justify-center
+              span.material-icons person
+    .min-h-screen.flex.flex-col(class='lg:flex-row')
+      // Main Content
+      main.flex-1.bg-gray-100
+        // Filter and Table
+        section.p-6
+          .flex.justify-between.items-center.mb-4
+            a(href=`${prefixAdmin}/log/filter`)
+              button.flex.items-center.space-x-2.bg-gray-200.text-gray-600.py-2.px-4.rounded-md.shadow(class='hover:bg-gray-300')
+                span.material-icons filter_list
+                span B&#x1ED9; l&#x1ECD;c
+            button.bg-blue-500.text-white.py-2.px-4.rounded-md(class='hover:bg-blue-600')
+              | Tr&iacute;ch xu&#x1EA5;t b&#x1EA3;ng
+          // Responsive Table
+          .overflow-x-auto
+            table#log-table.min-w-full.bg-white.rounded-lg.border-gray-300
+              thead.bg-blue-500.text-white
+                tr
+                  th.py-3.px-4.text-left.border-b STT
+                  th.py-3.px-4.text-left.border-b M&atilde; sinh vi&ecirc;n
+                  th.py-3.px-4.text-left.border-b M&atilde; m&aacute;y in
+                  th.py-3.px-4.text-left.border-b T&ecirc;n t&agrave;i li&#x1EC7;u
+                  th.py-3.px-4.text-left.border-b Th&#x1EDD;i gian b&#x1EAF;t &dstrok;&#x1EA7;u
+                  th.py-3.px-4.text-left.border-b Th&#x1EDD;i gian k&#x1EBF;t th&uacute;c
+                  th.py-3.px-4.text-left.border-b Lo&#x1EA1;i trang
+                  th.py-3.px-4.text-left.border-b S&#x1ED1; trang
+              tbody
+                each item, index in logs 
+                    tr  
+                        td.py-3.px-4.border-b.text-gray-700 #{index + 1 + pagination_item_per_page * (page - 1)}
+                        td.py-3.px-4.border-b.text-gray-700 #{item["Mã người dùng"]}
+                        td.py-3.px-4.border-b.text-gray-700 #{item["Mã máy in"]}
+                        td.py-3.px-4.border-b.text-gray-700 #{item["Tên tài liệu"]}
+                        td.py-3.px-4.border-b.text-gray-700 #{item["Thời gian bắt đầu"]}
+                        td.py-3.px-4.border-b.text-gray-700 #{item["Thời gian kết thúc"]}
+                        td.py-3.px-4.border-b.text-gray-700 #{item["Loại trang"]}
+                        td.py-3.px-4.border-b.text-gray-700 #{item["Số lượng trang mua"]}
+
+                // Repeat rows as needed
+          // Pagination
+          
+        .flex.justify-center.items-center.mt-4
+            button.px-3.py-2.bg-gray-200.text-gray-600.rounded-l-md(class='hover:bg-gray-300' disabled)
+                input(id='which-page' type='number' min='1' name='page' value=`${page}`)
+                | /#{totalLog}
+            button.px-3.py-2.bg-blue-200.text-gray-600.rounded-r-md(class='hover:bg-gray-300' id='apply-which-page')
+                | chuy&#x1EC3;n
+    // Footer
+    footer.w-full.bg-white.shadow-md.py-8.mt-8
+      .container.mx-auto.flex.flex-wrap.justify-between.px-6
+        // Logo and Title
+        .w-full.mb-6.flex.flex-col.items-start(class='md:w-1/3 md:mb-0')
+          .flex.items-center.flex-col
+            img.h-20.mb-2(src='/img/HCMUT_official_logo.png' alt='Logo')
+            h1.text-xl.font-bold.text-green-500 HCMUT - SSPS
+        // Categories
+        .w-full.mb-6(class='md:w-1/3 md:mb-0')
+          h2.text-lg.font-bold.text-gray-700 Danh M&#x1EE5;c
+          ul
+            li.text-gray-600 Qu&#x1EA3;n l&yacute; m&aacute;y in
+            li.text-gray-600 L&#x1ECB;ch s&#x1EED; d&#x1ECB;ch v&#x1EE5;
+            li.text-gray-600 Xem b&aacute;o c&aacute;o
+        // Contact Information
+        .w-full(class='md:w-1/3')
+          h2.text-lg.font-bold.text-gray-700 Li&ecirc;n H&#x1EC7;
+          p.text-gray-600
+            | Address: 268 L&yacute; Th&#x1B0;&#x1EDD;ng Ki&#x1EC7;t, ph&#x1B0;&#x1EDD;ng 14, qu&#x1EAD;n 10, TP.HCM
+          p.text-gray-600
+            | Phone: (028) 38 651 670 - (028) 38 647 256 (Ext: 5258, 5234)
+          p.text-gray-600 Email: ssps@hcmut.edu.vn
+
+script.
+  const submitButton = document.getElementById('apply-which-page');
+  const pageInput = document.getElementById('which-page');
+  submitButton.addEventListener('click', () => {
+    const pageValue = pageInput.value;
+    if (pageValue) {
+      // Get current URL and clone its search parameters
+      const currentUrl = new URL(window.location.href);
+      const params = new URLSearchParams(currentUrl.search);
+
+      // Update or add the 'page' parameter
+      params.set('page', pageValue);
+
+      // Construct the updated URL
+      const updatedUrl = `/admin/log?${params.toString()}`;
+
+      // Debugging: Show the updated URL in an alert
+      alert(`Redirecting to: ${updatedUrl}`);
+
+      // Redirect to the updated URL
+      window.location.href = updatedUrl;
+    } else {
+      alert('Please enter a valid page number.');
+    }
+  });
+
+

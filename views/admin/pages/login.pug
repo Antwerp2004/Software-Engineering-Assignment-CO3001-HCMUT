@@ -1,0 +1,70 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Printing Management System
+  link(href='https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css' rel='stylesheet')
+  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css')
+  link(href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet')
+header.w-full.bg-white.shadow-md.py-4.mb-8
+  .container.mx-auto.flex.items-center.justify-between.px-6
+    .flex.items-center.space-x-3
+      img.w-10.h-10(src='./img/HCMUT_official_logo.png' alt='Logo')
+      h1.text-xl.font-bold.text-green-500 HCMUT - SSPS
+    .flex.items-center.space-x-4
+      button.bg-blue-500.text-white.rounded-full.w-10.h-10.flex.items-center.justify-center
+        span.material-icons email
+      button.bg-blue-500.text-white.rounded-full.w-10.h-10.flex.items-center.justify-center
+        span.material-icons notifications
+      button.bg-blue-500.text-white.rounded-full.w-10.h-10.flex.items-center.justify-center
+        span.material-icons person
+.flex.flex-col.items-center.bg-zinc-300(class='lg:flex-row')
+  // Left Section
+  .flex.flex-col.justify-center.items-center.w-full.p-8.bg-white(class='lg:w-1/2 lg:p-10')
+    .w-full.bg-indigo-500.text-white.rounded-lg.text-center.py-8.px-6.shadow-lg
+      h2.text-2xl.font-extrabold(class='lg:text-3xl')
+        | HCMUT_SSO AUTHENTICATION SERVICE
+      p.mt-4.text-lg
+        | Vui l&ograve;ng &dstrok;&abreve;ng nh&#x1EAD;p v&#x1EDB;i t&agrave;i kho&#x1EA3;n qu&#x1EA3;n tr&#x1ECB; vi&ecirc;n
+    form.mt-8.w-full.space-y-6(action=`${prefixAdmin}/login` method="POST")
+      div
+        label.block.text-stone-900.font-medium(for='username')
+          | T&ecirc;n &dstrok;&abreve;ng nh&#x1EAD;p
+        input#username.w-full.mt-2.p-4.border.border-gray-300.rounded-md.shadow-sm(type='email' placeholder='Nhập tài khoản gmail của bạn' class='focus:outline-none focus:ring-2 focus:ring-indigo-500' name='email' required)
+      div
+        label.block.text-stone-900.font-medium(for='password')
+          | M&#x1EAD;t kh&#x1EA9;u
+        input#password.w-full.mt-2.p-4.border.border-gray-300.rounded-md.shadow-sm(type='password' placeholder='Nhập mật khẩu của bạn' class='focus:outline-none focus:ring-2 focus:ring-indigo-500' name='password' required)
+      .flex.justify-between.items-center
+        label.flex.items-center.text-stone-900
+          input.h-4.w-4.rounded.border-gray-300(type='checkbox' class='focus:ring-indigo-500')
+          span.ml-2 Ghi nh&#x1EDB; m&#x1EAD;t kh&#x1EA9;u
+        a.text-indigo-500(href='#' class='hover:underline')
+          | Qu&ecirc;n m&#x1EAD;t kh&#x1EA9;u
+      button.w-full.py-3.bg-indigo-500.text-white.rounded-md.shadow(type='submit' class='hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500')
+        | &Dstrok;&abreve;ng nh&#x1EAD;p
+  // Right Section
+  .w-full.p-8.flex.justify-center.items-center(class='lg:w-1/2 lg:p-10')
+    img.max-w-full.h-auto(src='https://cdn.builder.io/api/v1/image/assets/TEMP/bf3556c37ed97c1163611b8aa5cc53fa38bd9ce9ec3a47378ba9c18f38af70c8?placeholderIfAbsent=true&apiKey=fe65ef85b375408eac075f18f305b6ac' alt='Login Illustration')
+footer.w-full.bg-white.shadow-md.py-8.mt-8
+  .container.mx-auto.flex.flex-wrap.justify-between.px-6
+    // Logo and Title
+    .w-full.mb-6.flex.flex-col.items-start(class='md:w-1/3 md:mb-0')
+      .flex.items-center.flex-col
+        img.h-20.mb-2(src='./img/HCMUT_official_logo.png' alt='Logo')
+        h1.text-xl.font-bold.text-green-500 HCMUT - SSPS
+    // Categories
+    .w-full.mb-6(class='md:w-1/3 md:mb-0')
+      h2.text-lg.font-bold.text-gray-700 Danh m&#x1EE5;c
+      ul
+        li.text-gray-600 Qu&#x1EA3;n l&yacute; m&aacute;y in
+        li.text-gray-600 L&#x1ECB;ch s&#x1EED; d&#x1ECB;ch v&#x1EE5;
+        li.text-gray-600 Xem b&aacute;o c&aacute;o
+    // Contact Information
+    .w-full(class='md:w-1/3')
+      h2.text-lg.font-bold.text-gray-700 Li&ecirc;n H&#x1EC7;
+      p.text-gray-600
+        | Address: 268 L&yacute; Th&#x1B0;&#x1EDD;ng Ki&#x1EC7;t, ph&#x1B0;&#x1EDD;ng 14, qu&#x1EAD;n 10, TP.HCM
+      p.text-gray-600
+        | Phone: (028) 38 651 670 - (028) 38 647 256 (Ext: 5258, 5234)
+      p.text-gray-600 Email: ssps@hcmut.edu.vn

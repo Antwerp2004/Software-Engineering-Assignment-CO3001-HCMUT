@@ -1,0 +1,146 @@
+include ../mixins/notification.pug
+
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Printing Management System
+  link(href='https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css' rel='stylesheet')
+
+  //- for bootstrap 
+  link(href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css", rel="stylesheet")
+  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css')
+  link(href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet')
+  link(href='/css/notification_style.css' rel='stylesheet')
+
++notification-error("10000")
++notification-success("10000")
+
+// Header
+header.w-full.bg-white.shadow-md.py-4
+  .container.mx-auto.flex.items-center.justify-between.px-6
+    a(href='/')
+      .flex.items-center.space-x-3
+        img.w-10.h-10(src='/img/HCMUT_official_logo.png' alt='Logo')
+        h1.text-xl.font-bold.text-green-500 HCMUT - SSPS
+    .flex.items-center.space-x-4
+      button.bg-blue-500.text-white.rounded-full.w-10.h-10.flex.items-center.justify-center
+        span.material-icons email
+      button.bg-blue-500.text-white.rounded-full.w-10.h-10.flex.items-center.justify-center
+        span.material-icons notifications
+      a(href='/profile')
+        button.bg-blue-500.text-white.rounded-full.w-10.h-10.flex.items-center.justify-center
+          span.material-icons person
+// Section: Tải tài liệu lên
+.container.mx-auto.p-6
+  .bg-white.text-gray-800.shadow-lg.rounded-lg.mb-8
+    // Tiêu đề
+    .bg-blue-500.text-white.text-center.py-4.rounded-t-lg
+      h2.text-lg.font-bold.uppercase T&#x1EA3;i t&agrave;i li&#x1EC7;u l&ecirc;n
+    // Nội dung
+    .p-6
+      form(action='/print' method='POST' enctype='multipart/form-data')
+        // VỊ trí máy in
+        .mb-4
+          label.block.text-sm.font-semibold.text-gray-700.mb-1(for='printer-location') &Dstrok;&#x1ECB;a &dstrok;i&#x1EC3;m &dstrok;&#x1EB7;t m&aacute;y:
+          select#printer-location.w-full.bg-gray-100.text-gray-800.rounded.px-4.py-2(name='printerLocation')
+            option A1
+            option A2
+            option A3
+            option A4
+            option A5 
+            option B1
+            option B2 
+            option B3 
+            option B5 
+            option B6 
+            option B7 
+            option B8 
+            option B9 
+            option B10
+            option C1 
+            option C2 
+            option C3 
+            option C4
+            option C5 
+            option C6
+            option C7
+            option C9 
+            option C10
+        // Mã máy in
+        .mb-4
+          label.block.text-sm.font-semibold.text-gray-700.mb-1(for='printer-id') M&atilde; m&aacute;y in:
+          select#printer-id.w-full.bg-gray-100.text-gray-800.rounded.px-4.py-2(name='printerID' required)
+            each item, index in printerLocation 
+              option(class=`${item['Địa điểm đặt máy']}`) #{item['mã máy in']}
+        // Tên máy in
+        //- .mb-4
+        //-   label.block.text-sm.font-semibold.text-gray-700.mb-1(for='printer-name') T&ecirc;n m&aacute;y in:
+        //-   select#printer-name.w-full.bg-gray-100.text-gray-800.rounded.px-4.py-2(name='printerName')
+        //-     option Toshiba
+        //-     option &Dstrok;i&#x1EC7;n m&aacute;y xanh
+        //-     option VSmart
+        //-     option TGG&Dstrok;
+        // Số trang mỗi lần in
+        .mb-4
+          label.block.text-sm.font-semibold.text-gray-700.mb-2(for='file-upload') Ch&#x1ECD;n t&#x1EC7;p t&agrave;i li&#x1EC7;u:
+          input#file-upload.w-full.bg-gray-100.text-gray-800.rounded.px-4.py-2.border.border-gray-300(type='file' name='file' accept=`${permittedExtensions}` required)
+        .mb-4
+          label.block.text-sm.font-semibold.text-gray-700.mb-1 Số trang còn lại:
+          input#paper-size.w-full.bg-gray-100.text-gray-800.rounded.px-4.py-2(disabled value=`${remainingPaper}`)
+            
+        // Kích thước giấy
+        .mb-4
+          label.block.text-sm.font-semibold.text-gray-700.mb-1(for='paper-size') K&iacute;ch th&#x1B0;&#x1EDB;c gi&#x1EA5;y:
+          select#paper-size.w-full.bg-gray-100.text-gray-800.rounded.px-4.py-2(name='paper_size')
+            option(value='A4') A4 - 1000đ
+            option(value='A3') A3 - 2000đ
+            option(value='B4') B4 - 1800đ
+            option(value='B5') B5 - 800đ
+            option(value='C5') C5 - 1200đ
+            option(value='DL') DL - 900đ
+            option(value='Letter') Letter - 2500đ
+            option(value='Legal') Legal - 1500đ
+        // Số trang mỗi lần in
+        .mb-4
+          label.block.text-sm.font-semibold.text-gray-700.mb-1(for='pages-per-print') S&#x1ED1; trang tr&ecirc;n 1 m&#x1EB7;t gi&#x1EA5;y:
+          select#pages-per-print.w-full.bg-gray-100.text-gray-800.rounded.px-4.py-2(type='number' name='pages_per_paper')
+            option 1
+            option 2
+            option 4
+        // Tùy chọn in hai mặt
+        .mb-4.flex.items-center
+          input#double-sided.mr-2(type='checkbox' name='double_sided')
+          label.text-sm.font-semibold.text-gray-700(for='double-sided') In hai m&#x1EB7;t
+        .text-center
+          button.bg-blue-500.text-white.px-6.py-2.rounded(type='submit' class='hover:bg-blue-600')
+            | T&#x1EA3;i l&ecirc;n
+// Footer
+footer.w-full.bg-white.shadow-md.py-8.mt-8
+  .container.mx-auto.flex.flex-wrap.justify-between.px-6
+    // Logo và tên
+    .w-full.mb-6.flex.flex-col.items-start(class='md:w-1/3 md:mb-0')
+      .flex.items-center.flex-col
+        img.h-20.mb-2(src='/img/HCMUT_official_logo.png' alt='Logo')
+        h1.text-xl.font-bold.text-green-500 HCMUT - SSPS
+    // Danh mục
+    .w-full.mb-6(class='md:w-1/3 md:mb-0')
+      h2.text-lg.font-bold.text-gray-700 Danh M&#x1EE5;c
+      ul
+        li.text-gray-600 In t&agrave;i li&#x1EC7;u
+        li.text-gray-600 L&#x1ECB;ch s&#x1EED; in
+        li.text-gray-600 Mua trang in
+    // Liên hệ
+    .w-full(class='md:w-1/3')
+      h2.text-lg.font-bold.text-gray-700 Li&ecirc;n H&#x1EC7;
+      p.text-gray-600 Address: 268 L&yacute; Th&#x1B0;&#x1EDD;ng Ki&#x1EC7;t, ph&#x1B0;&#x1EDD;ng 14, qu&#x1EAD;n 10, TP.HCM
+      p.text-gray-600 Phone: (028) 38 651 670 - (028) 38 647 256 (Ext: 5258, 5234)
+      p.text-gray-600 Email: ssps@hcmut.edu.vn
+
+script(src='/script/printer_location.js')
+script(src='/script/notification.js')
+
+//- for bootstrap
+script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js")
+script(src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js")
+script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js")

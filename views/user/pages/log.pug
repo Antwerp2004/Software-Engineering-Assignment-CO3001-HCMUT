@@ -1,0 +1,188 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Printing Management System
+  link(href='https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css' rel='stylesheet')
+  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css')
+  link(href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet')
+header.w-full.bg-white.shadow-md.py-4
+  .container.mx-auto.flex.items-center.justify-between.px-6
+    a(href='/')
+      .flex.items-center.space-x-3
+        img.w-10.h-10(src='/img/HCMUT_official_logo.png' alt='Logo')
+        h1.text-xl.font-bold.text-green-500 HCMUT - SSPS
+    .flex.items-center.space-x-4
+      button.bg-blue-500.text-white.rounded-full.w-10.h-10.flex.items-center.justify-center
+        span.material-icons email
+      button.bg-blue-500.text-white.rounded-full.w-10.h-10.flex.items-center.justify-center
+        span.material-icons notifications
+      a(href='/profile')
+        button.bg-blue-500.text-white.rounded-full.w-10.h-10.flex.items-center.justify-center
+          span.material-icons person
+.flex.flex-1
+  // Sidebar
+  .bg-blue-500.text-white.p-4(class='w-1/5')
+    .flex.items-center.mb-6
+      img.w-20.h-20.mr-2(src='/img/logo3.png' alt='Logo')
+      span.font-bold.text-lg HCMUT_SPSS
+    nav
+      ul
+        li
+          a.flex.items-center.text-2xl.p-2(href='/')
+            i.fa-solid.fa-house-chimney-window.mr-2
+            span Trang ch&#x1EE7;
+        li
+          a.flex.items-center.text-2xl.p-2(href='/print')
+            i.fa-solid.fa-print.mr-2
+            |  In t&agrave;i li&#x1EC7;u
+        li
+          a.flex.items-center.text-2xl.p-2(href='/log')
+            i.fa-solid.fa-clock-rotate-left.mr-2
+            |  L&#x1ECB;ch s&#x1EED; in
+        li
+          a.flex.items-center.text-2xl.p-2(href='/buy_paper')
+            i.fa-regular.fa-credit-card.mr-2
+            |  Thanh to&aacute;n online
+  // Main Content
+  .p-6(class='w-4/5')
+    .flex.justify-between.mb-6
+      .flex.items-center
+        span.material-icons.mr-2 attach_money
+        div
+          p.text-gray-600 Tổng tiền
+          p.text-xl.font-bold 10,000
+      .flex.items-center
+        span.material-icons.mr-2 print
+        div
+          p.text-gray-600 Tổng lần in
+          p.text-xl.font-bold 10
+      .flex.items-center
+        span.material-icons.mr-2 description
+        div
+          p.text-gray-600 Tổng trang in
+          p.text-xl.font-bold 100
+      .flex.items-center
+        span.material-icons.mr-2 layers
+        div
+          p.text-gray-600 Số dư giấy
+          p.text-xl.font-bold #{remainingPaper}
+    .flex.justify-start.mb-4
+      button#filterButton.bg-blue-500.text-white.px-4.py-2.rounded-lg.shadow-md
+        i.fa-solid.fa-filter
+        |                     B&#x1ED9; l&#x1ECD;c
+    #filterModal.fixed.inset-0.bg-black.bg-opacity-50.hidden.flex.items-center.justify-center
+        .bg-white.rounded-lg.p-6.w-96.shadow-md
+          form(id='filter')
+            // Modal Header
+            .flex.justify-between.items-center.mb-4
+              h2.text-lg.font-bold.text-gray-700 B&#x1ED9; l&#x1ECD;c
+              button#closeModal.text-gray-500(class='hover:text-gray-700') &times;
+            // Date Filter
+            .mb-4
+              label.block.text-sm.font-medium.text-gray-700 L&#x1ECD;c ph&#x1EA1;m vi ng&agrave;y
+              .flex.space-x-2.mt-2
+                input#startDate.border.border-gray-300.rounded-md.px-2.py-1(type='date' class='w-1/2' value=`${startDate}`)
+                input#endDate.border.border-gray-300.rounded-md.px-2.py-1(type='date' class='w-1/2' value=`${endDate}`)
+            // Printer Selection
+            .mb-4
+              label.block.text-sm.font-medium.text-gray-700 L&#x1ECD;c theo m&atilde; m&aacute;y in
+              input#printerId.w-full.border.border-gray-300.rounded-md.px-2.py-1(value=`${printerID}`)
+                //- option(value='') Ch&#x1ECD;n t&#x1EA5;t c&#x1EA3;
+                //- option(value='printer1') M&aacute;y in 1
+                //- option(value='printer2') M&aacute;y in 2
+            // Buttons
+            .flex.justify-end.space-x-2
+              button#resetFilters.bg-gray-200.text-gray-700.px-4.py-2.rounded-lg &Dstrok;&#x1EB7;t l&#x1EA1;i
+              button#applyFilters.bg-blue-500.text-white.px-4.py-2.rounded-lg(type='submit') &Aacute;p d&#x1EE5;ng
+    .bg-white.shadow-md.rounded-lg.overflow-hidden
+      table.min-w-full.leading-normal
+        thead
+          tr
+            th.px-5.py-3.border-b-2.border-gray-200.bg-gray-100.text-left.text-xs.font-semibold.text-gray-600.uppercase.tracking-wider
+              | STT
+            th.px-5.py-3.border-b-2.border-gray-200.bg-gray-100.text-left.text-xs.font-semibold.text-gray-600.uppercase.tracking-wider
+              | Mã máy in
+            th.px-5.py-3.border-b-2.border-gray-200.bg-gray-100.text-left.text-xs.font-semibold.text-gray-600.uppercase.tracking-wider
+              | Tên tài liệu
+            th.px-5.py-3.border-b-2.border-gray-200.bg-gray-100.text-left.text-xs.font-semibold.text-gray-600.uppercase.tracking-wider
+              | Thời gian bắt đầu
+            th.px-5.py-3.border-b-2.border-gray-200.bg-gray-100.text-left.text-xs.font-semibold.text-gray-600.uppercase.tracking-wider
+              | Thời gian kết thúc
+            th.px-5.py-3.border-b-2.border-gray-200.bg-gray-100.text-left.text-xs.font-semibold.text-gray-600.uppercase.tracking-wider
+              | Loại trang
+            th.px-5.py-3.border-b-2.border-gray-200.bg-gray-100.text-left.text-xs.font-semibold.text-gray-600.uppercase.tracking-wider
+              | Số giấy sử dụng
+        tbody
+          // Table rows here
+          each item, index in logs 
+            tr 
+              th.px-5.py-3.border-b-2.border-gray-200.text-left.text-xs.font-semibold.text-gray-600.uppercase.tracking-wider
+                | #{index + 1}
+              th.px-5.py-3.border-b-2.border-gray-200.text-left.text-xs.font-semibold.text-gray-600.uppercase.tracking-wider
+                | #{item['Mã máy in']}
+              th.px-5.py-3.border-b-2.border-gray-200.text-left.text-xs.font-semibold.text-gray-600.uppercase.tracking-wider
+                | #{item['Tên tài liệu']}
+              th.px-5.py-3.border-b-2.border-gray-200.text-left.text-xs.font-semibold.text-gray-600.uppercase.tracking-wider
+                | #{item['Thời gian bắt đầu']}
+              th.px-5.py-3.border-b-2.border-gray-200.text-left.text-xs.font-semibold.text-gray-600.uppercase.tracking-wider
+                | #{item['Thời gian kết thúc']}
+              th.px-5.py-3.border-b-2.border-gray-200.text-left.text-xs.font-semibold.text-gray-600.uppercase.tracking-wider
+                | #{item['Loại trang']}
+              th.px-5.py-3.border-b-2.border-gray-200.text-left.text-xs.font-semibold.text-gray-600.uppercase.tracking-wider
+                | #{item['Số lượng trang mua']}
+footer.w-full.bg-white.shadow-md.py-8
+  .container.mx-auto.flex.flex-wrap.justify-between.px-6
+    // Logo and Title
+    .w-full.mb-6.flex.flex-col.items-start(class='md:w-1/3 md:mb-0')
+      .flex.items-center.flex-col
+        img.h-20.mb-2(src='/img/HCMUT_official_logo.png' alt='Logo')
+        h1.text-xl.font-bold.text-green-500 HCMUT - SSPS
+    // Categories
+    .w-full.mb-6(class='md:w-1/3 md:mb-0')
+      h2.text-lg.font-bold.text-gray-700 Danh M&#x1EE5;c
+      ul
+        li.text-gray-600 In t&agrave;i li&#x1EC7;u
+        li.text-gray-600 L&#x1ECB;ch s&#x1EED; in
+        li.text-gray-600 Mua trang in
+    // Contact Information
+    .w-full(class='md:w-1/3')
+      h2.text-lg.font-bold.text-gray-700 Li&ecirc;n H&#x1EC7;
+      p.text-gray-600 Address: 268 L&yacute; Th&#x1B0;&#x1EDD;ng Ki&#x1EC7;t, ph&#x1B0;&#x1EDD;ng 14, qu&#x1EAD;n 10, TP.HCM
+      p.text-gray-600 Phone: (028) 38 651 670 - (028) 38 647 256 (Ext: 5258, 5234)
+      p.text-gray-600 Email: ssps@hcmut.edu.vn
+script.
+  // Get elements
+  const filterButton = document.getElementById("filterButton");
+  const filterModal = document.getElementById("filterModal");
+  const closeModal = document.getElementById("closeModal");
+  const resetFilters = document.getElementById("resetFilters");
+  const applyFilters = document.getElementById("applyFilters");
+  // Open modal
+  filterButton.addEventListener("click", () => {
+  filterModal.classList.remove("hidden");
+  });
+  // Close modal
+  closeModal.addEventListener("click", () => {
+  filterModal.classList.add("hidden");
+  });
+  // Reset filters
+  resetFilters.addEventListener("click", () => {
+  document.getElementById("startDate").value = "";
+  document.getElementById("endDate").value = "";
+  document.getElementById("printerId").value = "";
+  });
+  // Apply filters
+  applyFilters.addEventListener("click", () => {
+  const startDate = document.getElementById("startDate").value;
+  const endDate = document.getElementById("endDate").value;
+  const printerId = document.getElementById("printerId").value;
+  // Handle the filter logic here (e.g., send a request to the server)
+  console.log("Start Date:", startDate);
+  console.log("End Date:", endDate);
+  console.log("Printer ID:", printerId);
+  // Close modal
+  filterModal.classList.add("hidden");
+  });
+
+script(src='/script/filter_log.js')
